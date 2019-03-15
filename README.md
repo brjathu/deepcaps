@@ -20,10 +20,16 @@ cd deepcaps
  
 ## Training
 
+If you are training on multiple GPUs change the `numGPU` parameter in `args` class in `train.py` file. 
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py
 ```
-Commnet the required datasets in the `train.py` file.
+
+If you are training on single GPU change the `numGPU` parameter in `args` class in `train.py` file to 1.
+```
+CUDA_VISIBLE_DEVICES=0 python train.py or python train.py
+```
+To test with several other datasets commnet out the required dataset in the `train.py` file.
 
 
 ## Performance
