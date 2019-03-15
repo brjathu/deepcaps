@@ -3,7 +3,7 @@ Official Implementation of "DeepCaps: Going Deeper with Capsule Networks" paper 
 
 This code provides deep capsule neural networks (DeepCaps) implemented in Keras with Tensorflow backend. The code supports training the model in multiple GPUs. 
 
-The current `test error on CIFAR10= 7.26%`.   
+The current `test error on CIFAR10 = 7.26%`.   
 
 ## Usage
 ```
