@@ -11,32 +11,26 @@ git clone https://github.com/brjathu/deepcaps.git
 cd deepcaps
 ```
 
-## Training
-
-```
-CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py
-```
-
-### Supported Datasets
+## Supported Datasets
  - `CIFAR10`
  - `CIFAR100` 
  - `SVHN` 
  - `F-MNIST`
  - `MNIST`
+ 
+## Training
 
-#### Performance:
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py
+```
+Commnet the required datasets in the `train.py` file.
 
 
-Adaptive-step:
- - `dopri5` Runge-Kutta 4(5) [default].
- - `adams` Adaptive-order implicit Adams.
+## Performance
 
-Fixed-step:
- - `euler` Euler method.
- - `midpoint` Midpoint method.
- - `rk4` Fourth-order Runge-Kutta with 3/8 rule.
- - `explicit_adams` Explicit Adams.
- - `fixed_adams` Implicit Adams.
+## Download pre-trained models and ensemble test
+
+
 
 ### References
 [1] J. Rajasegaran, V. Jayasundara, S.Jeyasekara, N. Jeyasekara, S. Seneviratne, R. Rodrigo.. "DeepCaps : Going Deeper with Capsule Networks." *Conference on Computer Vision and Pattern Recognition.* 2019. [[arxiv]](https://arxiv.org/abs/1806.07366)
