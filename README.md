@@ -17,6 +17,7 @@ cd deepcaps
  - `SVHN` 
  - `F-MNIST`
  - `MNIST`
+ - `tiny-imagenet`
  
 ## Training
 
