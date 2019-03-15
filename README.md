@@ -5,11 +5,6 @@ This code provides deep capsule neural networks (DeepCaps) implemented in Keras 
 
 The current `test error on CIFAR10= 7.26%`.   
 
-<p align="center">
-  <img align="middle" src="./assets/resnet_0_viz.png" alt="Discrete-depth network" width="240" height="330" />
-  <img align="middle" src="./assets/odenet_0_viz.png" alt="Continuous-depth network" width="240" height="330" />
-</p>
-
 ## Usage
 ```
 git clone https://github.com/brjathu/deepcaps.git
@@ -21,15 +16,16 @@ cd deepcaps
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py
 ```
-The goal of an ODE solver is to find a continuous trajectory satisfying the ODE that passes through the initial condition.
 
+### Supported Datasets
+ - `CIFAR10`
+ - `CIFAR100` 
+ - `SVHN` 
+ - `F-MNIST`
+ - `MNIST`
 
-### Keyword Arguments
- - `rtol` Relative tolerance.
- - `atol` Absolute tolerance.
- - `method` One of the solvers listed below.
+#### Performance:
 
-#### List of ODE Solvers:
 
 Adaptive-step:
  - `dopri5` Runge-Kutta 4(5) [default].
