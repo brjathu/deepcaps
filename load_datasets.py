@@ -122,11 +122,11 @@ def load_tiny_imagenet(path,num_classes):
     y_test = to_categorical(y_test.astype('float32'))
     return X_train,y_train,X_test,y_test
 
-def resize(data_set):
+def resize(data_set, size):
     X_temp = []
     import scipy
     for i in range(data_set.shape[0]):
-        resized = scipy.misc.imresize(data_set[i], (64, 64))
+        resized = scipy.misc.imresize(data_set[i], (size, size))
         X_temp.append(resized)
     X_temp = np.array(X_temp, dtype=np.float32) / 255.
     return X_temp

@@ -7,6 +7,9 @@ def margin_loss(y_true, y_pred):
     L = y_true * K.square(K.maximum(0., 0.90 - y_pred)) + 0.5 * (1 - y_true) * K.square(K.maximum(0., y_pred - 0.1))
     return K.mean(K.sum(L, 1))
 
+def margin_loss_hard(y_true, y_pred):
+    L = y_true * K.square(K.maximum(0., 0.95 - y_pred)) + 0.8 * (1 - y_true) * K.square(K.maximum(0., y_pred - 0.05))
+    return K.mean(K.sum(L, 1))
 
 class CustomModelCheckpoint(callbacks.Callback):
 

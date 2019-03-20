@@ -59,8 +59,8 @@ def DeepCapsNet(input_shape, n_class, routings):
     lb = FlattenCaps()(l1)
     l = layers.Concatenate(axis=-2)([la, lb])
 
-    l = Dropout(0.4)(l)
-    digits_caps = CapsuleLayer(num_capsule=n_class, dim_capsule=16, routings=routings, channels=0, name='digit_caps')(l)
+#     l = Dropout(0.4)(l)
+    digits_caps = CapsuleLayer(num_capsule=n_class, dim_capsule=32, routings=routings, channels=0, name='digit_caps')(l)
 
     l = CapsToScalars(name='capsnet')(digits_caps)
 
@@ -73,7 +73,7 @@ def DeepCapsNet(input_shape, n_class, routings):
 
     # Decoder Network
     decoder = models.Sequential(name='decoder')
-    decoder.add(Dense(input_dim=16, activation="relu", output_dim=8 * 8 * 16))
+    decoder.add(Dense(input_dim=32, activation="relu", output_dim=8 * 8 * 16))
     decoder.add(Reshape((8, 8, 16)))
     decoder.add(BatchNormalization(momentum=0.8))
     decoder.add(Deconvolution2D(64, 3, 3, subsample=(1, 1), border_mode='same'))

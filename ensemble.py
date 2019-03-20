@@ -66,7 +66,92 @@ def ensemble(models, model_input):
     return model
 
 (x_train, y_train), (x_test, y_test) = load_cifar10()
-x_test64 = np.load("../../x_test.npy")
+# x_test64 = np.load("../../x_test.npy")
+
+
+
+def resize(data_set):
+    X_temp = []
+    import scipy
+    for i in range(data_set.shape[0]):
+        resized = scipy.misc.imresize(data_set[i], (64, 64))
+        X_temp.append(resized)
+    X_temp = np.array(X_temp, dtype=np.float32) / 255.
+    return X_temp
+
+x_test64 = resize(x_test)
+# x_test64 = np.load("x_test.npy")
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/1/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/1/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_1.npy", a1)
+
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/2/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/2/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_2.npy", a1)
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/3/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/3/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_3.npy", a1)
+
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/4/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/4/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_4.npy", a1)
+
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/5/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/5/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_5.npy", a1)
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/6/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/6/best_weights.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_6.npy", a1)
+
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/7/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/7/best_weights_2x.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_7.npy", a1)
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/8/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/8/best_weights_2x.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_8.npy", a1)
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/9/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/9/best_weights_2x.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_9.npy", a1)
+
+# m1 = imp.load_source('module.name', 'model/CIFAR10/10/deepcaps.py')
+# _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+# eval_model1.load_weights('model/CIFAR10/10/best_weights_2x.h5')
+# a1, b1 = eval_model1.predict(x_test64)
+# np.save("model/CIFAR10/deepcaps_10.npy", a1)
+
+m1 = imp.load_source('module.name', 'model/CIFAR10/11/deepcaps.py')
+_, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
+eval_model1.load_weights('model/CIFAR10/11/best_weights_2x.h5')
+a1, b1 = eval_model1.predict(x_test64)
+np.save("model/CIFAR10/deepcaps_11.npy", a1)
+
 
 
 # input_shape=x_train.shape[1:]
@@ -85,57 +170,3 @@ x_test64 = np.load("../../x_test.npy")
 # print('Test acc:', np.sum(yy == np.argmax(y_test, 1)) / y_test.shape[0])
 
 
-
-
-
-
-
-m1 = imp.load_source('module.name', 'model/CIFAR10_ensemble/1/deepcaps.py')
-_, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
-eval_model1.load_weights('model/CIFAR10_ensemble/1/best_weights.h5')
-a1, b1 = eval_model1.predict(x_test64)
-np.save("model/CIFAR10_ensemble/ensamble/deepcaps_1.npy", a1)
-
-
-m1 = imp.load_source('module.name', 'model/CIFAR10_ensemble/2/deepcaps.py')
-_, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
-eval_model1.load_weights('model/CIFAR10_ensemble/2/best_weights.h5')
-a2, b1 = eval_model1.predict(x_test64)
-np.save("model/CIFAR10_ensemble/ensamble/deepcaps_2.npy", a2)
-
-m1 = imp.load_source('module.name', 'model/CIFAR10_ensemble/3/deepcaps.py')
-_, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
-eval_model1.load_weights('model/CIFAR10_ensemble/3/best_weights.h5')
-a3, b1 = eval_model1.predict(x_test64)
-np.save("model/CIFAR10_ensemble/ensamble/deepcaps_3.npy", a3)
-
-
-m1 = imp.load_source('module.name', 'model/CIFAR10_ensemble/4/deepcaps.py')
-_, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
-eval_model1.load_weights('model/CIFAR10_ensemble/4/best_weights.h5')
-a4, b1 = eval_model1.predict(x_test64)
-np.save("model/CIFAR10_ensemble/ensamble/deepcaps_4.npy", a4)
-
-
-
-
-
-d1 = np.load("model/CIFAR10_ensemble/ensamble/deepcaps_1.npy")
-p1 = np.sum(np.argmax(d1, 1) == t) / y_test.shape[0]
-print('Test acc:', p1)
-
-d2 = np.load("model/CIFAR10_ensemble/ensamble/deepcaps_2.npy")
-p2 = np.sum(np.argmax(d2, 1) == t) / y_test.shape[0]
-print('Test acc:', p2)
-
-d3 = np.load("model/CIFAR10_ensemble/ensamble/deepcaps_3.npy")
-p3 = np.sum(np.argmax(d3, 1) == t) / y_test.shape[0]
-print('Test acc:', p3)
-
-d4 = np.load("model/CIFAR10_ensemble/ensamble/deepcaps_4.npy")
-p4 = np.sum(np.argmax(d4, 1) == t) / y_test.shape[0]
-print('Test acc:', p4)
-
-
-a = (d1 + d2 + d3 + d4)
-print('Ensemble Test acc:', np.sum(np.argmax(a, 1) == np.argmax(y_test, 1)) / y_test.shape[0])

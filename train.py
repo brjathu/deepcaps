@@ -3,36 +3,33 @@ import keras.callbacks as callbacks
 from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import multi_gpu_model
 from load_datasets import *
-from utils import margin_loss, CustomModelCheckpoint
+from utils import margin_loss, margin_loss_hard, CustomModelCheckpoint
 from deepcaps import DeepCapsNet, BaseCapsNet
 
-
-def train(model, data, args):
+def train(model, data, hard_training, args):
     # unpacking the data
     (x_train, y_train), (x_test, y_test) = data
 
     # callbacks
     log = callbacks.CSVLogger(args.save_dir + '/log' + appendix + '.csv')
-    tb = callbacks.TensorBoard(log_dir=args.save_dir + '/tensorboard-logs',
-                              batch_size=args.batch_size, histogram_freq=int(args.debug),write_grads=False)
-    checkpoint1 = CustomModelCheckpoint(model, args.save_dir + '/best_weights_1' + appendix + '.h5', monitor='val_capsnet_acc',
-                                         save_best_only=False, save_weights_only=True, verbose=1)
+    tb = callbacks.TensorBoard(log_dir=args.save_dir + '/tensorboard-logs', batch_size=args.batch_size, histogram_freq=int(args.debug), write_grads=False)
+    checkpoint1 = CustomModelCheckpoint(model, args.save_dir + '/best_weights_1' + appendix + '.h5', monitor='val_capsnet_acc', 
+                                        save_best_only=False, save_weights_only=True, verbose=1)
 
     checkpoint2 = CustomModelCheckpoint(model, args.save_dir + '/best_weights_2' + appendix + '.h5', monitor='val_capsnet_acc',
-                                         save_best_only=True, save_weights_only=True, verbose=1)
+                                        save_best_only=True, save_weights_only=True, verbose=1)
 
     lr_decay = callbacks.LearningRateScheduler(schedule=lambda epoch: args.lr * 0.5**(epoch // 10))
-    
-    if(args.numGPU>1):
+
+    if(args.numGPU > 1):
         parallel_model = multi_gpu_model(model, gpus=args.numGPU)
     else:
         parallel_model = model
 
-    # compile the model  ssim loss for better reconstruction DSSIMObjective()
-    parallel_model.compile(optimizer=optimizers.Adam(lr=args.lr),
-                           loss=[margin_loss, 'mse'],
-                           loss_weights=[1, 0.4],
-                           metrics={'capsnet': "accuracy"})
+    if(not hard_training):
+        parallel_model.compile(optimizer=optimizers.Adam(lr=args.lr), loss=[margin_loss, 'mse'], loss_weights=[1, 0.4], metrics={'capsnet': "accuracy"})
+    else:
+        parallel_model.compile(optimizer=optimizers.Adam(lr=args.lr), loss=[margin_loss_hard, 'mse'], loss_weights=[1, 0.4], metrics={'capsnet': "accuracy"})
 
     # Begin: Training with data augmentation
     def train_generator(x, y, batch_size, shift_fraction=args.shift_fraction):
@@ -54,13 +51,10 @@ def train(model, data, args):
                                  initial_epoch=int(args.ep_num),
                                  shuffle=True)
 
-
     parallel_model.save(args.save_dir + '/trained_model_multi_gpu.h5')
     model.save(args.save_dir + '/trained_model.h5')
 
     return parallel_model
-
-
 
 
 class args:
@@ -75,7 +69,7 @@ class args:
     shift_fraction = 0.1
     debug = False
     digit = 5
-    save_dir = 'model/cifar_64'
+    save_dir = 'model/CIFAR10/13'
     t = False
     w = None
     ep_num = 0
@@ -86,23 +80,28 @@ try:
 except:
     print("mkdir " + args.save_dir)
 try:
-    os.system("cp *.py " + args.save_dir + "/")
+    os.system("cp deepcaps.py " + args.save_dir + "/deepcaps.py")
 except:
-    print("cp *.py " + args.save_dir + "/")
-    
-    
+    print("cp deepcaps.py " + args.save_dir + "/deepcaps.py")
+
+
 # load data
 # (x_train, y_train), (x_test, y_test) = load_cifar100()
 (x_train, y_train), (x_test, y_test) = load_cifar10()
 # (x_train, y_train), (x_test, y_test) = load_svhn()
 # x_train,y_train,x_test,y_test = load_tiny_imagenet("tiny_imagenet/tiny-imagenet-200", 200)
 
-x_train = resize(x_train)
-x_test = resize(x_test)
+x_train = resize(x_train, 64)
+x_test = resize(x_test, 64)
 
 model, eval_model = DeepCapsNet(input_shape=x_train.shape[1:], n_class=y_train.shape[1], routings=args.routings)
 # plot_model(model, show_shapes=True,to_file=args.save_dir + '/model.png')
 
-appendix = ""
 
-train(model=model, data=((x_train, y_train), (x_test, y_test)), args=args)
+appendix = ""
+train(model=model, data=((x_train, y_train), (x_test, y_test)), hard_training=False, args=args)
+
+
+model.load_weights(args.save_dir + '/best_weights_2' + appendix + '.h5')
+appendix = "x"
+train(model=model, data=((x_train, y_train), (x_test, y_test)), hard_training=True, args=args)
