@@ -37,11 +37,11 @@ To test with several other datasets commnet out the required dataset in the `tra
 
 Dataset | Test error | 
 -------|:-------:|
-EMNIST-Letters |95.36 ± 0.30% |
-EMNIST-Balanced |90.46 ± 0.22% |
-EMNIST-Digits |99.79 ± 0.11% |
-MNIST |99.71 ± 0.18% |
-Fashion MNIST |93.71 ± 0.64% |
+CIFAR10 | 7.26% |
+SVHN |2.44% |
+MNIST |0.28% |
+FMNIST |5.27% |
+
 
 
 ## Download pre-trained models and ensemble test
