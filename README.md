@@ -6,6 +6,14 @@ This code provides deep capsule neural networks (DeepCaps) implemented in Keras 
 The current `test error on CIFAR10 = 7.26%`.   
 
 ## Usage
+### step 1 : Install dependencies
+```
+conda install -c anaconda tensorflow-gpu
+conda install -c anaconda keras-gpu 
+conda install -c conda-forge matplotlib
+conda install -c conda-forge pillow
+```
+### step 2 : Clone the repository
 ```
 git clone https://github.com/brjathu/deepcaps.git
 cd deepcaps
