@@ -46,7 +46,7 @@ Fashion MNIST |93.71 ± 0.64% |
 
 ## Download pre-trained models and ensemble test
 
-Download this [link](https://drive.google.com/open?id=1Plj-dH4OoSORqWf-23XxToW0X46NdVmR) and extract the files inside model directory. Then run `ensemble.py` file.
+Download this [CIFAR10 - pretrained models](https://drive.google.com/open?id=1Plj-dH4OoSORqWf-23XxToW0X46NdVmR) and extract the files inside model directory. Then run `ensemble.py` file.
 ```
 python ensemble.py
 ```
