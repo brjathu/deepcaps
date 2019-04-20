@@ -35,6 +35,15 @@ To test with several other datasets commnet out the required dataset in the `tra
 
 ## Performance
 
+Dataset | Test error | 
+-------|:-------:|
+EMNIST-Letters |95.36 ± 0.30% |
+EMNIST-Balanced |90.46 ± 0.22% |
+EMNIST-Digits |99.79 ± 0.11% |
+MNIST |99.71 ± 0.18% |
+Fashion MNIST |93.71 ± 0.64% |
+
+
 ## Download pre-trained models and ensemble test
 
 Download this [link](https://drive.google.com/open?id=1Plj-dH4OoSORqWf-23XxToW0X46NdVmR) and extract the files inside model directory. Then run `ensemble.py` file.
@@ -42,7 +51,14 @@ Download this [link](https://drive.google.com/open?id=1Plj-dH4OoSORqWf-23XxToW0X
 python ensemble.py
 ```
 
-### References
+## We credit
+We have used [this](https://github.com/XifengGuo/CapsNet-Keras) as the base CapsNet implementation. We thank and credit the contributors of this repository.
+
+## Contact
+Jathushan Rajasegaran - brjathu@gmail.com  
+Discussions, suggestions and questions are welcome!
+
+## References
 [1] J. Rajasegaran, V. Jayasundara, S.Jeyasekara, N. Jeyasekara, S. Seneviratne, R. Rodrigo.. "DeepCaps : Going Deeper with Capsule Networks." *Conference on Computer Vision and Pattern Recognition.* 2019. [[arxiv]](https://arxiv.org/abs/1806.07366)
 
 ---
