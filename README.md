@@ -37,7 +37,7 @@ To test with several other datasets commnet out the required dataset in the `tra
 
 ## Download pre-trained models and ensemble test
 
-Download this `link` and extract the files inside model directory. Then run `ensemble.py` file.
+Download this [link](https://drive.google.com/open?id=1Plj-dH4OoSORqWf-23XxToW0X46NdVmR) and extract the files inside model directory. Then run `ensemble.py` file.
 ```
 python ensemble.py
 ```
