@@ -87,7 +87,7 @@ for i in range(7):
 
      m1 = imp.load_source('module.name', 'model/CIFAR10/'+ str(i+1)+'/deepcaps.py')
      _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
-     eval_model1.load_weights('model/CIFAR10/1/best_weights.h5')
+     eval_model1.load_weights('model/CIFAR10/'+str(i+1)+'/best_weights.h5')
      a1, b1 = eval_model1.predict(x_test64)
      np.save("model/CIFAR10/deepcaps_"+str(i+1)+".npy", a1)
 
