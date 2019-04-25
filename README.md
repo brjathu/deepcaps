@@ -1,5 +1,5 @@
 # Tensorflow and Keras Implementation of Deep Capsule Neural Networks
-Official Implementation of "DeepCaps: Going Deeper with Capsule Networks" paper presented at CVPR 2019.
+Official Implementation of "DeepCaps: Going Deeper with Capsule Networks" paper, will be presented at CVPR 2019.
 
 This code provides deep capsule neural networks (DeepCaps) implemented in Keras with Tensorflow backend. The code supports training the model in multiple GPUs. 
 
