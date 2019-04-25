@@ -69,17 +69,17 @@ Discussions, suggestions and questions are welcome!
 ## References
 [1] J. Rajasegaran, V. Jayasundara, S.Jeyasekara, N. Jeyasekara, S. Seneviratne, R. Rodrigo. "DeepCaps : Going Deeper with Capsule Networks." *Conference on Computer Vision and Pattern Recognition.* 2019. [[arxiv]](https://arxiv.org/abs/1904.09546)
 
-<!---
+
 ---
 
 If you found this code useful in your research, please consider citing
 ```
-@article{chen2018neural,
-  title={DeepCaps : Going Deeper with Capsule Networks},
-  author={Jathushan Rajasegaran, Vinoj Jayasundara, Sandaru Jayasekara, Hirunima Jayasekara, Suranga Seneviratne, Ranga Rodrigo},
-  journal={Conference on Computer Vision and Pattern Recognition},
-  year={2019}
+@misc{rajasegaran2019deepcaps,
+    title={DeepCaps: Going Deeper with Capsule Networks},
+    author={Jathushan Rajasegaran and Vinoj Jayasundara and Sandaru Jayasekara and Hirunima Jayasekara and Suranga Seneviratne and Ranga Rodrigo},
+    year={2019},
+    eprint={1904.09546},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
 }
 ```
-
--->
