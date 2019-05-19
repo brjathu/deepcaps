@@ -4,7 +4,8 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import multi_gpu_model
 from load_datasets import *
 from utils import margin_loss, margin_loss_hard, CustomModelCheckpoint
-from deepcaps import DeepCapsNet, BaseCapsNet
+from deepcaps import DeepCapsNet, DeepCapsNet28, BaseCapsNet
+import os
 
 def train(model, data, hard_training, args):
     # unpacking the data
@@ -58,7 +59,7 @@ def train(model, data, hard_training, args):
 
 
 class args:
-    numGPU = 3
+    numGPU = 1
     epochs = 100
     batch_size = 256
     lr = 0.001
@@ -73,7 +74,7 @@ class args:
     t = False
     w = None
     ep_num = 0
-
+    dataset = "MNIST"
 
 try:
     os.system("mkdir " + args.save_dir)
@@ -86,17 +87,31 @@ except:
 
 
 # load data
-# (x_train, y_train), (x_test, y_test) = load_cifar100()
-(x_train, y_train), (x_test, y_test) = load_cifar10()
-# (x_train, y_train), (x_test, y_test) = load_svhn()
+if(args.dataset == "CIFAR100"):
+    (x_train, y_train), (x_test, y_test) = load_cifar100()
+    x_train = resize(x_train, 64)
+    x_test = resize(x_test, 64)
+elif(args.dataset == "CIFAR10"):
+    (x_train, y_train), (x_test, y_test) = load_cifar10()
+    x_train = resize(x_train, 64)
+    x_test = resize(x_test, 64)
+elif(args.dataset == "MNIST"):
+    (x_train, y_train), (x_test, y_test) = load_mnist()
+elif(args.dataset == "FMNIST"):
+    (x_train, y_train), (x_test, y_test) = load_fmnist()
+elif(args.dataset == "SVHN"):
+    (x_train, y_train), (x_test, y_test) = load_svhn()
+    x_train = resize(x_train, 64)
+    x_test = resize(x_test, 64)
+
 # x_train,y_train,x_test,y_test = load_tiny_imagenet("tiny_imagenet/tiny-imagenet-200", 200)
 
-x_train = resize(x_train, 64)
-x_test = resize(x_test, 64)
 
-model, eval_model = DeepCapsNet(input_shape=x_train.shape[1:], n_class=y_train.shape[1], routings=args.routings)
+
+# model, eval_model = DeepCapsNet(input_shape=x_train.shape[1:], n_class=y_train.shape[1], routings=args.routings)  # for 64*64
+model, eval_model = DeepCapsNet28(input_shape=x_train.shape[1:], n_class=y_train.shape[1], routings=args.routings)  #for 28*28
+
 # plot_model(model, show_shapes=True,to_file=args.save_dir + '/model.png')
-
 
 appendix = ""
 train(model=model, data=((x_train, y_train), (x_test, y_test)), hard_training=False, args=args)
