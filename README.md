@@ -74,12 +74,11 @@ Discussions, suggestions and questions are welcome!
 
 If you found this code useful in your research, please consider citing
 ```
-@misc{rajasegaran2019deepcaps,
-    title={DeepCaps: Going Deeper with Capsule Networks},
-    author={Jathushan Rajasegaran and Vinoj Jayasundara and Sandaru Jayasekara and Hirunima Jayasekara and Suranga Seneviratne and Ranga Rodrigo},
-    year={2019},
-    eprint={1904.09546},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
+ @InProceedings{Rajasegaran_2019_CVPR,
+author = {Rajasegaran, Jathushan and Jayasundara, Vinoj and Jayasekara, Sandaru and Jayasekara, Hirunima and Seneviratne, Suranga and Rodrigo, Ranga},
+title = {DeepCaps: Going Deeper With Capsule Networks},
+booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2019}
 }
 ```
