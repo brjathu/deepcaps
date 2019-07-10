@@ -6,6 +6,7 @@ from load_datasets import *
 from utils import margin_loss, margin_loss_hard, CustomModelCheckpoint
 from deepcaps import DeepCapsNet, DeepCapsNet28, BaseCapsNet
 import os
+import imp
 
 def train(model, data, hard_training, args):
     # unpacking the data
@@ -56,6 +57,19 @@ def train(model, data, hard_training, args):
     model.save(args.save_dir + '/trained_model.h5')
 
     return parallel_model
+
+def test(eval_model, data):
+
+    (x_train, y_train), (x_test, y_test) = data
+
+    # uncommnt and add the corresponding .py and weight to test other models
+    # m1 = imp.load_source('module.name', args.save_dir+"/deepcaps.py")
+    # _, eval_model = m1.DeepCapsNet28(input_shape=x_test.shape[1:], n_class=10, routings=3)
+    eval_model.load_weights(args.save_dir+"/best_weights_1.h5")
+    a1, b1 = eval_model.predict(x_test)
+    p1 = np.sum(np.argmax(a1, 1) == np.argmax(y_test, 1)) / y_test.shape[0]
+    print('Test acc:', p1)
+    return p1
 
 
 class args:
@@ -113,10 +127,20 @@ model, eval_model = DeepCapsNet28(input_shape=x_train.shape[1:], n_class=y_train
 
 # plot_model(model, show_shapes=True,to_file=args.save_dir + '/model.png')
 
+
+
+################  training  #################  
 appendix = ""
 train(model=model, data=((x_train, y_train), (x_test, y_test)), hard_training=False, args=args)
-
 
 model.load_weights(args.save_dir + '/best_weights_2' + appendix + '.h5')
 appendix = "x"
 train(model=model, data=((x_train, y_train), (x_test, y_test)), hard_training=True, args=args)
+#############################################
+
+
+
+
+#################  testing  #################  
+test(eval_model, ((x_train, y_train), (x_test, y_test)))
+##############################################

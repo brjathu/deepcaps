@@ -1,15 +1,14 @@
 
 
-def test(model, data, args):
-    x_test, y_test = data
-    y_pred, x_recon = model.predict(x_test, batch_size=10)
-    print('-'*30 + 'Begin: test' + '-'*30)
-    print('Test acc:', np.sum(np.argmax(y_pred, 1) == np.argmax(y_test, 1))/y_test.shape[0])
-    img = combine_images(np.concatenate([x_test[:50],x_recon[:50]]))
-    image = img * 255
-    Image.fromarray(image.astype(np.uint8)).save(args.save_dir + "/real_and_recon"+str(args.iter)+".png")
-    #Image.fromarray(image.astype(np.uint8)).filter(ImageFilter.SHARPEN).save(args.save_dir + "/real_and_recon"+str(args.iter)+".png")
-    print('Reconstructed images are saved to %s/real_and_recon.png' % args.save_dir)
-    print('-' * 30 + 'End: test' + '-' * 30)
-    #plt.imshow(plt.imread(args.save_dir + "/real_and_recon.png"))
-    #plt.show()
+def test(model_path_file, model_path_weight, data, args):
+
+    (x_train, y_train), (x_test, y_test) = data
+
+    m1 = imp.load_source('module.name', model_path_file)
+    _, eval_model = m1.DeepCapsNet28(input_shape=x_test.shape[1:], n_class=10, routings=3)
+    eval_model.load_weights(model_path_weight)
+    a1, b1 = eval_model.predict(x_test)
+    p1 = np.sum(np.argmax(d1, 1) == t) / y_test.shape[0]
+    print('Test acc:', p1)
+    return p1
+

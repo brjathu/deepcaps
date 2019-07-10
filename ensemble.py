@@ -67,7 +67,7 @@ def ensemble(models, model_input):
 
 (x_train, y_train), (x_test, y_test) = load_cifar10()
 # x_test64 = np.load("../../x_test.npy")
-
+t = np.argmax(y_test, 1)
 
 
 def resize(data_set):
