@@ -90,10 +90,7 @@ class args:
     ep_num = 0
     dataset = "MNIST"
 
-try:
-    os.system("mkdir " + args.save_dir)
-except:
-    print("mkdir " + args.save_dir)
+os.makedirs(args.save_dir, exist_ok=True)
 try:
     os.system("cp deepcaps.py " + args.save_dir + "/deepcaps.py")
 except:
