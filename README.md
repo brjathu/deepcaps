@@ -10,6 +10,7 @@ The current `test error on CIFAR10 = 7.26%`.
 ```
 conda install -c anaconda tensorflow-gpu=1.13.1
 conda install -c anaconda keras-gpu 
+conda install -c anaconda scipy=1.2*
 conda install -c conda-forge matplotlib
 conda install -c conda-forge pillow
 ```
