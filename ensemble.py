@@ -82,8 +82,9 @@ def resize(data_set):
 x_test64 = resize(x_test)
 # x_test64 = np.load("x_test.npy")
 
+loop_size=7
 
-for i in range(7):
+for i in range(loop_size):
 
      m1 = imp.load_source('module.name', 'model/CIFAR10/'+ str(i+1)+'/deepcaps.py')
      _, eval_model1 = m1.DeepCapsNet(input_shape=x_test64.shape[1:], n_class=10, routings=3)
@@ -91,36 +92,15 @@ for i in range(7):
      a1, b1 = eval_model1.predict(x_test64)
      np.save("model/CIFAR10/deepcaps_"+str(i+1)+".npy", a1)
 
+d = [None] * (loop_size+1)
+for i in range(1, loop_size+1):
+     d[i] = np.load("model/CIFAR10/deepcaps_"+str(i)+".npy")
+     p = np.sum(np.argmax(d[i], 1) == t) / y_test.shape[0]
+     print(f'p{i} Test acc:', p)
 
+# The following is a workaround for d8 and d9 in the next average
+d.append(0) # d8=0
+d.append(0) # d9=0
 
-d1 = np.load("model/CIFAR10/deepcaps_1.npy")
-p1 = np.sum(np.argmax(d1, 1) == t) / y_test.shape[0]
-print('Test acc:', p1)
-
-d3 = np.load("model/CIFAR10/deepcaps_3.npy")
-p3 = np.sum(np.argmax(d3, 1) == t) / y_test.shape[0]
-print('Test acc:', p3)
-
-d5 = np.load("model/CIFAR10/deepcaps_5.npy")
-p5 = np.sum(np.argmax(d5, 1) == t) / y_test.shape[0]
-print('Test acc:', p5)
-
-d6 = np.load("model/CIFAR10/deepcaps_6.npy")
-p6 = np.sum(np.argmax(d6, 1) == t) / y_test.shape[0]
-print('Test acc:', p6)
-
-d7 = np.load("model/CIFAR10/deepcaps_7.npy")
-p7 = np.sum(np.argmax(d7, 1) == t) / y_test.shape[0]
-print('Test acc:', p7)
-
-d8 = np.load("model/CIFAR10/deepcaps_8.npy")
-p8 = np.sum(np.argmax(d8, 1) == t) / y_test.shape[0]
-print('Test acc:', p8)
-
-d9 = np.load("model/CIFAR10/deepcaps_9.npy")
-p9 = np.sum(np.argmax(d9, 1) == t) / y_test.shape[0]
-print('Test acc:', p9)
-
-
-a = (d1*2 + d3*3 + d5 + d6 + d7 + d8 + d9*3 )
+a = (d[1]*2 + d[3]*3 + d[5] + d[6] + d[7] + d[8] + d[9]*3 )
 print('Test acc:', np.sum(np.argmax(a, 1) == np.argmax(y_test, 1)) / y_test.shape[0])
