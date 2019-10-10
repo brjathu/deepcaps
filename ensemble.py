@@ -93,31 +93,31 @@ for i in range(7):
 
 
 
-d1 = np.load("deepcaps_1.npy")
+d1 = np.load("model/CIFAR10/deepcaps_1.npy")
 p1 = np.sum(np.argmax(d1, 1) == t) / y_test.shape[0]
 print('Test acc:', p1)
 
-d3 = np.load("deepcaps_3.npy")
+d3 = np.load("model/CIFAR10/deepcaps_3.npy")
 p3 = np.sum(np.argmax(d3, 1) == t) / y_test.shape[0]
 print('Test acc:', p3)
 
-d5 = np.load("deepcaps_5.npy")
+d5 = np.load("model/CIFAR10/deepcaps_5.npy")
 p5 = np.sum(np.argmax(d5, 1) == t) / y_test.shape[0]
 print('Test acc:', p5)
 
-d6 = np.load("deepcaps_6.npy")
+d6 = np.load("model/CIFAR10/deepcaps_6.npy")
 p6 = np.sum(np.argmax(d6, 1) == t) / y_test.shape[0]
 print('Test acc:', p6)
 
-d7 = np.load("deepcaps_7.npy")
+d7 = np.load("model/CIFAR10/deepcaps_7.npy")
 p7 = np.sum(np.argmax(d7, 1) == t) / y_test.shape[0]
 print('Test acc:', p7)
 
-d8 = np.load("deepcaps_8.npy")
+d8 = np.load("model/CIFAR10/deepcaps_8.npy")
 p8 = np.sum(np.argmax(d8, 1) == t) / y_test.shape[0]
 print('Test acc:', p8)
 
-d9 = np.load("deepcaps_9.npy")
+d9 = np.load("model/CIFAR10/deepcaps_9.npy")
 p9 = np.sum(np.argmax(d9, 1) == t) / y_test.shape[0]
 print('Test acc:', p9)
 
