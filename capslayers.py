@@ -348,7 +348,8 @@ def update_routing(votes, biases, logit_shape, num_dims, input_dim, output_dim,
         preactivate_unrolled = route * votes_trans
         preact_trans = tf.transpose(preactivate_unrolled, r_t_shape)
         preactivate = tf.reduce_sum(preact_trans, axis=1) + biases
-        activation = _squash(preactivate)
+        # activation = _squash(preactivate)
+        activation = squash(preactivate, axis=[-1, -2, -3])
         activations = activations.write(i, activation)
 
         act_3d = K.expand_dims(activation, 1)
