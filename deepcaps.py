@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 import os
 from PIL import Image
-from capslayers import Conv2DCaps, ConvCapsuleLayer3D, CapsuleLayer, CapsToScalars, Mask_CID, ConvertToCaps, FlattenCaps
+from capslayers import Conv2DCaps, ConvCapsuleLayer3D, CapsuleLayer, CapsToScalars, Mask_CID, Mask, ConvertToCaps, FlattenCaps
 
 
 # To limit the GPU usage
@@ -177,10 +177,11 @@ def BaseCapsNet(input_shape, n_class, routings):
 
     l = Conv2DCaps(16, 6, kernel_size=(3, 3), strides=(2, 2), r_num=1, b_alphas=[1, 1, 1])(l)
 
+    l = FlattenCaps()(l)
     digits_caps = CapsuleLayer(num_capsule=10, dim_capsule=8, routings=routings, channels=0, name='digit_caps')(l)
     l = CapsToScalars(name='capsnet')(digits_caps)
 
-    m_capsnet = Model(inputs=x, outputs=l, name='capsnet_model')
+    m_capsnet = models.Model(inputs=x, outputs=l, name='capsnet_model')
     y = layers.Input(shape=(n_class,))
 
     masked_by_y = Mask()([digits_caps, y])  # The true label is used to mask the output of capsule layer. For training
