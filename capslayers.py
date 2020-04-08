@@ -5,6 +5,8 @@ from keras import layers, initializers, regularizers, constraints
 from keras.utils import conv_utils
 from keras.layers import InputSpec
 from keras.utils.conv_utils import conv_output_length
+from batchdot import own_batch_dot
+
 
 cf = K.image_data_format() == '..'
 useGPU = True
@@ -96,6 +98,7 @@ class Conv2DCaps(layers.Layer):
         self.r_num = r_num
         self.b_alphas = b_alphas
         self.padding = conv_utils.normalize_padding(padding)
+        #self.data_format = conv_utils.normalize_data_format(data_format)
         self.data_format = K.normalize_data_format(data_format)
         self.dilation_rate = (1, 1)
         self.kernel_initializer = initializers.get(kernel_initializer)
@@ -543,7 +546,7 @@ class CapsuleLayer(layers.Layer):
         # Regard the first two dimensions as `batch` dimension,
         # then matmul: [input_dim_capsule] x [dim_capsule, input_dim_capsule]^T -> [dim_capsule].
         # inputs_hat.shape = [None, num_capsule, input_num_capsule, dim_capsule]
-        inputs_hat = K.map_fn(lambda x: K.batch_dot(x, W2, [2, 3]), elems=inputs_tiled)
+        inputs_hat = K.map_fn(lambda x: own_batch_dot(x, W2, [2, 3]), elems=inputs_tiled)
 
         # Begin: Routing algorithm ---------------------------------------------------------------------#
         # The prior for coupling coefficient, initialized as zeros.
@@ -560,7 +563,7 @@ class CapsuleLayer(layers.Layer):
             # The first two dimensions as `batch` dimension,
             # then matmal: [input_num_capsule] x [input_num_capsule, dim_capsule] -> [dim_capsule].
             # outputs.shape=[None, num_capsule, dim_capsule]
-            outputs = squash(K.batch_dot(c, inputs_hat, [2, 2]) + self.B)  # [None, 10, 16]
+            outputs = squash(own_batch_dot(c, inputs_hat, [2, 2]) + self.B)  # [None, 10, 16]
 
             if i < self.routings - 1:
                 # outputs.shape =  [None, num_capsule, dim_capsule]
@@ -568,7 +571,7 @@ class CapsuleLayer(layers.Layer):
                 # The first two dimensions as `batch` dimension,
                 # then matmal: [dim_capsule] x [input_num_capsule, dim_capsule]^T -> [input_num_capsule].
                 # b.shape=[batch_size, num_capsule, input_num_capsule]
-                b += K.batch_dot(outputs, inputs_hat, [2, 3])
+                b += own_batch_dot(outputs, inputs_hat, [2, 3])
         # End: Routing algorithm -----------------------------------------------------------------------#
 
         return outputs
